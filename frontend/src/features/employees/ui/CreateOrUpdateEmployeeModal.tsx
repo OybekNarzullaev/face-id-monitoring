@@ -140,6 +140,7 @@ const CreateOrUpdateEmployeeModal = ({ open, onClose, employee }: Props) => {
             />
 
             <TextField label="Telefon" fullWidth {...register("phone")} />
+            <TextField label="Email" fullWidth {...register("email")} />
 
             <TextField label="Lavozim" fullWidth {...register("position")} />
 
