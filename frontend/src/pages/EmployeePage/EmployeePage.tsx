@@ -17,6 +17,7 @@ import {
   Button,
   IconButton,
   Tooltip,
+  useTheme,
 } from "@mui/material";
 import { useSearchParams } from "react-router";
 import AddIcon from "@mui/icons-material/Add";
@@ -60,7 +61,7 @@ const EmployeePage = () => {
 
   const employees: Employee[] = data?.result.data ?? [];
   const meta = data?.meta;
-
+  const theme = useTheme();
   // 🔁 search o‘zgarganda URL yangilanadi
   const handleSearchChange = (value: string) => {
     setSearchParams((prev) => {
@@ -128,15 +129,60 @@ const EmployeePage = () => {
         <Paper elevation={0} sx={{ borderRadius: 3 }}>
           <TableContainer>
             <Table>
-              <TableHead>
+              <TableHead
+                sx={{
+                  bgcolor: theme.palette.primary.main,
+                }}
+              >
                 <TableRow>
-                  <TableCell>Xodim</TableCell>
-                  <TableCell>Telefon</TableCell>
-                  <TableCell>Lavozim</TableCell>
-                  <TableCell>Bo‘lim</TableCell>
-                  <TableCell align="center">Holati</TableCell>
-                  <TableCell>Qayd etilgan</TableCell>
-                  <TableCell></TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Xodim
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Telefon
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Lavozim
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Bo‘lim
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Holati
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Qayd etilgan
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  ></TableCell>
                 </TableRow>
               </TableHead>
 

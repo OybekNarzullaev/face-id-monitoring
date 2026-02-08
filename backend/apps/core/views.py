@@ -20,7 +20,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     pagination_class = StandardResultsSetPagination
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
     filter_backends = (SearchFilter, OrderingFilter)
 
     # SQLite uchun tez qidiruv

@@ -6,6 +6,7 @@ import { LoginPage } from "@/pages/LoginPage";
 import { EmployeeAttendancePage } from "@/pages/EmployeeAttendancePage";
 import { EmployeePage } from "@/pages/EmployeePage";
 import { CreateAttendancePage } from "@/pages/CreateAttendancePage";
+import NotFoundPage from "@/pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -38,8 +39,16 @@ export const router = createBrowserRouter([
             path: "employees",
             Component: EmployeePage,
           },
+          {
+            path: "*",
+            Component: NotFoundPage,
+          },
         ],
       },
     ],
+  },
+  {
+    path: "*",
+    Component: NotFoundPage,
   },
 ]);

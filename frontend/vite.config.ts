@@ -17,7 +17,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: "client",
+    outDir: "frontend",
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -29,8 +29,8 @@ export default defineConfig({
               .toString();
           }
         },
-        chunkFileNames: "static/js/client/client-[hash].js",
-        entryFileNames: "static/js/client/client-[hash].js",
+        chunkFileNames: "static/js/frontend/frontend-[hash].js",
+        entryFileNames: "static/js/frontend/frontend-[hash].js",
 
         assetFileNames: ({ name }) => {
           // if (/\.(gif|jpe?g|png|svg)$/.test(name ?? "")) {
@@ -38,12 +38,12 @@ export default defineConfig({
           // }
 
           if (/\.css$/.test(name ?? "")) {
-            return "static/css/client/client-[hash][extname]";
+            return "static/css/frontend/frontend-[hash][extname]";
           }
 
           // default value
           // ref: https://rollupjs.org/guide/en/#outputassetfilenames
-          return "static/media/client/[name]-[hash][extname]";
+          return "static/media/frontend/[name]-[hash][extname]";
         },
       },
     },

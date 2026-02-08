@@ -11,6 +11,7 @@ import {
   Stack,
   CircularProgress,
   TextField,
+  useTheme,
 } from "@mui/material";
 import { useSearchParams } from "react-router";
 
@@ -29,6 +30,7 @@ const EmployeeAttendancePage = () => {
   const device = searchParams.get("device") ?? "";
   const search = searchParams.get("search") ?? "";
 
+  const theme = useTheme();
   const { data, isLoading } = useListAttendances({
     page,
     perPage: PER_PAGE,
@@ -90,15 +92,55 @@ const EmployeeAttendancePage = () => {
         {/* 📋 TABLE */}
         <Paper elevation={0} sx={{ borderRadius: 3 }}>
           <TableContainer>
-            <Table>
-              <TableHead>
+            <Table size="small">
+              <TableHead
+                sx={{
+                  bgcolor: theme.palette.primary.main,
+                }}
+              >
                 <TableRow>
-                  <TableCell>Xodim</TableCell>
-                  <TableCell>Telefon</TableCell>
-                  <TableCell>Lavozim</TableCell>
-                  <TableCell>Qurilma</TableCell>
-                  <TableCell>Vaqt</TableCell>
-                  <TableCell>Izoh</TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Xodim
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Telefon
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Email
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Lavozim
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Qurilma
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: theme.palette.background.default,
+                    }}
+                  >
+                    Vaqt
+                  </TableCell>
                 </TableRow>
               </TableHead>
 
@@ -134,18 +176,15 @@ const EmployeeAttendancePage = () => {
                       </TableCell>
 
                       <TableCell>{att.employee.phone ?? "—"}</TableCell>
+                      <TableCell>{att.employee.email ?? "—"}</TableCell>
 
                       <TableCell>{att.employee.position ?? "—"}</TableCell>
 
                       <TableCell>{att.device_id}</TableCell>
 
                       <TableCell>
-                        {att.timestamp
-                          ? new Date(att.timestamp).toLocaleString()
-                          : "—"}
+                        {new Date(att.created_at).toLocaleString("uz-UZ")}
                       </TableCell>
-
-                      <TableCell>{att.note || "—"}</TableCell>
                     </TableRow>
                   ))}
               </TableBody>
