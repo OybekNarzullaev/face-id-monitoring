@@ -9,7 +9,7 @@ urlpatterns = [
     path('api/auth/', include('apps.accounts.urls')),
     path('api/accounts/', include('apps.accounts.urls')),
     path('api/', include('apps.core.urls')),
-    path('', include('apps.client.urls')),
+
 ]
 
 
@@ -18,3 +18,5 @@ if settings.DEBUG:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
+
+urlpatterns += [path('', include('apps.client.urls'))]
