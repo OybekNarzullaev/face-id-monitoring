@@ -22,7 +22,7 @@ export const useListEmployees = (params?: EmployeeListParams) => {
 export const useEmployeeDetail = (id?: number) => {
   return useQuery({
     queryKey: ["employee", id],
-    queryFn: () => getEmployeeDetailAPI(id!),
+    queryFn: () => getEmployeeDetailAPI(id!).then((res) => res.result.data), // faqat employee qaytaramiz
     enabled: Boolean(id), // id bo‘lmasa so‘rov qilmaydi
   });
 };

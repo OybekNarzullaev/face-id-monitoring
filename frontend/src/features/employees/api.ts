@@ -58,8 +58,8 @@ export const updateEmployeeAPI = async (
   return res.data;
 };
 
-export const getEmployeeDetailAPI = async (id: number): Promise<Employee> => {
-  const res = await api.get(`/api/employees/${id}/`);
+export const getEmployeeDetailAPI = async (id: number) => {
+  const res = await api.get<APIResponse<Employee>>(`/api/employees/${id}/`);
   return res.data;
 };
 

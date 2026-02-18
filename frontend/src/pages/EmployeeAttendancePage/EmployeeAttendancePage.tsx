@@ -18,6 +18,8 @@ import { useSearchParams } from "react-router";
 import PageContainer from "@/shared/ui/PageContainer";
 import { useListAttendances } from "@/features/attendance/hooks";
 import type { Attendance } from "@/shared/types/attendance";
+import { useEmployeeDetail } from "@/features/employees/hooks";
+import { EmployeeCard } from "@/features/employees/ui/EmployeeCard";
 
 const PER_PAGE = 15;
 
@@ -40,8 +42,24 @@ const EmployeeAttendancePage = () => {
     search: search || undefined,
   } as any);
 
+  const { data: employeeDetail } = useEmployeeDetail(
+    employee ? Number(employee) : undefined,
+  );
+
   const attendances: Attendance[] = data?.result.data ?? [];
   const meta = data?.meta;
+  const totalLogs = meta?.total ?? 0;
+
+  const uniqueEmployees = new Set(
+    attendances.map((a) => a.employee?.id ?? a.employee),
+  ).size;
+
+  const uniqueDevices = new Set(attendances.map((a) => a.device_id)).size;
+
+  const today = new Date().toISOString().split("T")[0];
+  const todayLogs = attendances.filter((a) =>
+    a.created_at?.startsWith(today),
+  ).length;
 
   const updateParams = (updates: Record<string, string | null>) => {
     setSearchParams((prev: any) => {
@@ -60,6 +78,71 @@ const EmployeeAttendancePage = () => {
   return (
     <PageContainer title="Xodimlar auditi">
       <Stack spacing={2}>
+        {/* 📊 AUDIT STAT BAR */}
+        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+          <Paper
+            sx={{
+              flex: 1,
+              p: 2,
+              borderRadius: 3,
+              background: "linear-gradient(135deg, #1976d2, #42a5f5)",
+              color: "#fff",
+            }}
+          >
+            <Typography variant="body2">Jami kirishlar</Typography>
+            <Typography variant="h4" fontWeight={700}>
+              {totalLogs}
+            </Typography>
+          </Paper>
+
+          <Paper
+            sx={{
+              flex: 1,
+              p: 2,
+              borderRadius: 3,
+              background: "linear-gradient(135deg, #2e7d32, #66bb6a)",
+              color: "#fff",
+            }}
+          >
+            <Typography variant="body2">Unikal xodimlar</Typography>
+            <Typography variant="h4" fontWeight={700}>
+              {uniqueEmployees}
+            </Typography>
+          </Paper>
+
+          <Paper
+            sx={{
+              flex: 1,
+              p: 2,
+              borderRadius: 3,
+              background: "linear-gradient(135deg, #6a1b9a, #ba68c8)",
+              color: "#fff",
+            }}
+          >
+            <Typography variant="body2">Qurilmalar</Typography>
+            <Typography variant="h4" fontWeight={700}>
+              {uniqueDevices}
+            </Typography>
+          </Paper>
+
+          <Paper
+            sx={{
+              flex: 1,
+              p: 2,
+              borderRadius: 3,
+              background: "linear-gradient(135deg, #f57c00, #ffb74d)",
+              color: "#fff",
+            }}
+          >
+            <Typography variant="body2">Bugungi kirishlar</Typography>
+            <Typography variant="h4" fontWeight={700}>
+              {todayLogs}
+            </Typography>
+          </Paper>
+        </Stack>
+
+        {employeeDetail && <EmployeeCard employee={employeeDetail} />}
+
         {/* 🔍 FILTER PANEL */}
         <Paper variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
           <Stack direction={{ xs: "column", md: "row" }} spacing={2}>

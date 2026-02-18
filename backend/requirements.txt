@@ -3,6 +3,6 @@ djangorestframework
 django-cors-headers
 markdown
 django-filter
-Pilllow
+Pillow
 whitenoise
 django-rest-knox

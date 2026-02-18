@@ -19,8 +19,9 @@ import {
   Tooltip,
   useTheme,
 } from "@mui/material";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import AddIcon from "@mui/icons-material/Add";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Delete from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
 import PageContainer from "@/shared/ui/PageContainer";
@@ -61,6 +62,9 @@ const EmployeePage = () => {
 
   const employees: Employee[] = data?.result.data ?? [];
   const meta = data?.meta;
+  const total = meta?.total ?? 0;
+  const active = employees.filter((e) => e.is_active).length;
+  const inactive = employees.filter((e) => !e.is_active).length;
   const theme = useTheme();
   // 🔁 search o‘zgarganda URL yangilanadi
   const handleSearchChange = (value: string) => {
@@ -96,6 +100,54 @@ const EmployeePage = () => {
         </Button>
       }
     >
+      {/* 📊 STAT BAR */}
+      <Stack direction={{ xs: "column", md: "row" }} mb={2} spacing={2}>
+        <Paper
+          sx={{
+            flex: 1,
+            p: 2,
+            borderRadius: 3,
+            background: "linear-gradient(135deg, #1976d2, #42a5f5)",
+            color: "#fff",
+          }}
+        >
+          <Typography variant="body2">Jami xodimlar</Typography>
+          <Typography variant="h4" fontWeight={700}>
+            {total}
+          </Typography>
+        </Paper>
+
+        <Paper
+          sx={{
+            flex: 1,
+            p: 2,
+            borderRadius: 3,
+            background: "linear-gradient(135deg, #2e7d32, #66bb6a)",
+            color: "#fff",
+          }}
+        >
+          <Typography variant="body2">Faol</Typography>
+          <Typography variant="h4" fontWeight={700}>
+            {active}
+          </Typography>
+        </Paper>
+
+        <Paper
+          sx={{
+            flex: 1,
+            p: 2,
+            borderRadius: 3,
+            background: "linear-gradient(135deg, #757575, #bdbdbd)",
+            color: "#fff",
+          }}
+        >
+          <Typography variant="body2">Faol emas</Typography>
+          <Typography variant="h4" fontWeight={700}>
+            {inactive}
+          </Typography>
+        </Paper>
+      </Stack>
+
       <CreateOrUpdateEmployeeModal
         open={openModal}
         employee={selectedEmployee}
@@ -262,6 +314,15 @@ const EmployeePage = () => {
                           >
                             <Delete color="error" />
                           </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Kirish-chiqish tarixini ko‘rish">
+                          <Link
+                            to={`/dashboard/attendances?employee=${emp.id}`}
+                          >
+                            <IconButton>
+                              <AccessTimeIcon color="primary" />
+                            </IconButton>
+                          </Link>
                         </Tooltip>
                       </TableCell>
                     </TableRow>
